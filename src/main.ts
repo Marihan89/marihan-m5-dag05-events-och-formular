@@ -20,7 +20,8 @@ const filterGrupp = hamta('#filter')
 const herobutton = hamta('#hero .knapp')
 herobutton.addEventListener('click', (e) => {
     console.log(`Target : ${e.target} , Type : ${e.type}`)
-    e.preventDefault()
+    //e.preventDefault()
+    //preventdefault preventetd refrencing to the menu section
 })
 
 // 2. Lägg till handelse.preventDefault() i lyssnaren. Vad händer med länken?
