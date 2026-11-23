@@ -28,13 +28,23 @@ herobutton.addEventListener('click', (e) => {
 //    Ta bort preventDefault igen när du provat.
 // TODO
 
-//button?.addEventListener('click', (e) => e.preventDefault)
-
 // DEL 2: filtret ----------------------------------------------------------
 // 3. Skriv funktionen uppdateraMeny(filter: Filter): void: hämta rätter med filtreraMeny, visa dem med visaMeny,
 //    uppdatera rubriken och markera den billigaste lunchen som dagens rätt (om det finns någon lunch).
+function uppdateraMeny(filter: Filter): void {
+    const filteredMenu = filtreraMeny(meny, filter)
+    visaMeny(lista, filteredMenu)
+    uppdateraRubrik(rubrik, filteredMenu.length)
+
+    const lunches = filteredMenu.filter((x) => x.kategori === 'lunch')
+    const cheapest = billigast(lunches)
+    if (cheapest) markeraDagensRatt(lista, cheapest.id)
+}
+
 // 4. Anropa uppdateraMeny("alla") direkt, och koppla filterknapparna med kopplaFilter.
 // TODO
+uppdateraMeny('alla')
+kopplaFilter(filterGrupp, uppdateraMeny)
 
 // DEL 3 (fördjupning): beställningen ---------------------------------------
 // 5. let order: OrderRad[] = []; Koppla kopplaLaggTill(lista, ...) så att klick lägger till i order och visar den
