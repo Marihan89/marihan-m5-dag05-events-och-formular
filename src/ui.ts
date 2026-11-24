@@ -9,6 +9,7 @@ export interface OrderRef {
     tom: HTMLElement
 }
 import { hittaRatt, totalPris } from './meny'
+import { hamta } from './dom'
 
 export function skapaRattKort(ratt: Ratt): HTMLElement {
     const kort = document.createElement('article')
@@ -78,4 +79,20 @@ export function visaOrder(
     meny: Ratt[]
 ): void {
     // TODO
+    ref.lista.replaceChildren()
+    const children = ref.lista.querySelectorAll('#order-lista li')
+    if (children.length === 0)
+        order.map((m) => {
+            let i = hittaRatt(meny, m.id)
+            const itemcontainer = document.createElement('li')
+            const itemname = document.createElement('span')
+            const itemprice = document.createElement('span')
+            itemcontainer.append(itemname, itemprice)
+
+            itemname.textContent = `${m.antal} × ${i?.namn}`
+            itemprice.textContent = formateraPris(i?.pris ?? 0)
+            ref.lista.appendChild(itemcontainer)
+        })
+    ref.tom.classList.toggle('dold', order.length > 0)
+    ref.summa.textContent = formateraPris(totalPris(order, meny))
 }

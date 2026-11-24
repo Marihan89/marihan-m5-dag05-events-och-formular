@@ -47,7 +47,8 @@ uppdateraMeny('alla')
 kopplaFilter(filterGrupp, uppdateraMeny)
 
 // DEL 3 (fördjupning): beställningen ---------------------------------------
-// 5. let order: OrderRad[] = []; Koppla kopplaLaggTill(lista, ...) så att klick lägger till i order och visar den
+// 5. let order: OrderRad[] = []; Koppla kopplaLaggTill(lista, ...)
+// så att klick lägger till i order och visar den
 //    med visaOrder. Koppla knappen #rensa-order till rensaOrder.
 const orderRef = {
     lista: hamta('#order-lista'),
@@ -55,3 +56,19 @@ const orderRef = {
     tom: hamta('#order-tom')
 }
 // TODO
+let order: OrderRad[] = []
+
+kopplaLaggTill(lista, (id) => {
+    order = laggTillIOrder(order, id)
+    visaOrder(orderRef, order, meny)
+})
+
+const delbutton = hamta<HTMLButtonElement>('#rensa-order')
+
+delbutton?.addEventListener('click', () => {
+    order = rensaOrder()
+    console.log(order)
+    visaOrder(orderRef, order, meny)
+})
+
+visaOrder(orderRef, order, meny)
